@@ -5,30 +5,30 @@ import { sql } from "@vercel/postgres";
 import { POSTS_PER_PAGE } from "@/config";
 
 export async function PostList({ currentPage = 1 }) {
-  const { rows: posts } = await sql`
-    SELECT 
-      diditposts.id, 
-      diditposts.title, 
-      diditposts.body, 
-      diditposts.created_at, 
-      diditusers.name,
-      COALESCE(SUM(diditvotes.vote), 0) AS vote_total
-    FROM 
-      diditposts
-      JOIN diditusers ON diditposts.user_id = diditusers.id
-      LEFT JOIN diditvotes ON diditvotes.post_id = diditposts.id
-    GROUP BY 
-      diditposts.id, 
-      diditusers.name
-    ORDER BY 
-      vote_total DESC
-    LIMIT ${POSTS_PER_PAGE}
-    OFFSET ${POSTS_PER_PAGE * (currentPage - 1)}
-  `;
+  // const { rows: posts } = await sql`
+  //   SELECT
+  //     diditposts.id,
+  //     diditposts.title,
+  //     diditposts.body,
+  //     diditposts.created_at,
+  //     diditusers.name,
+  //     COALESCE(SUM(diditvotes.vote), 0) AS vote_total
+  //   FROM
+  //     diditposts
+  //     JOIN diditusers ON diditposts.user_id = diditusers.id
+  //     LEFT JOIN diditvotes ON diditvotes.post_id = diditposts.id
+  //   GROUP BY
+  //     diditposts.id,
+  //     diditusers.name
+  //   ORDER BY
+  //     vote_total DESC
+  //   LIMIT ${POSTS_PER_PAGE}
+  //   OFFSET ${POSTS_PER_PAGE * (currentPage - 1)}
+  // `;
 
   return (
     <>
-      <ul className="max-w-screen-lg mx-auto p-4 mb-4">
+      {/* <ul className="max-w-screen-lg mx-auto p-4 mb-4">
         {posts?.map((post) => (
           <li
             key={post.id}
@@ -48,7 +48,7 @@ export async function PostList({ currentPage = 1 }) {
           </li>
         ))}
       </ul>
-      <Pagination currentPage={currentPage} />
+      <Pagination currentPage={currentPage} /> */}
     </>
   );
 }
